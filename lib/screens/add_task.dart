@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:todoapp/helpers/database_helper.dart';
+import 'package:todoapp/models/task_model.dart';
 
 class AddTask extends StatefulWidget {
+  final Function updateTaskList;
+  final Task task;
+
+  AddTask({this.updateTaskList, this.task});
   @override
   _AddTaskState createState() => _AddTaskState();
 }
@@ -15,6 +21,18 @@ class _AddTaskState extends State<AddTask> {
 
   final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy');
   final List<String> _priorities = ['Low', 'Medium', 'High'];
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.task != null) {
+      _title = widget.task.title;
+      _priority = widget.task.priority;
+      _date = widget.task.date;
+    }
+    _dateController.text = _dateFormatter.format(_date);
+  }
 
   _handleDatePicker() async {
     final DateTime date = await showDatePicker(
@@ -36,7 +54,16 @@ class _AddTaskState extends State<AddTask> {
       _formKey.currentState.save();
       print('$_title,$_date,$_priority');
       //insert task to user db
+      Task task = Task(title: _title, date: _date, priority: _priority);
+      if (widget.task == null) {
+        task.status = 0;
+        DatabaseHelper.instance.insertTask(task);
+      } else {
+        task.status = widget.task.status;
+        DatabaseHelper.instance.updateTask(task);
+      }
       //update the task
+      widget.updateTaskList();
       Navigator.pop(context);
     }
   }

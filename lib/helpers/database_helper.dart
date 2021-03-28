@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todoapp/models/task_model.dart';
@@ -14,7 +13,7 @@ class DatabaseHelper {
   String colId = 'id';
   String colTitle = 'title';
   String colDate = 'date';
-  String colPriority = 'priotity';
+  String colPriority = 'priority';
   String colStatus = 'status';
 
   Future<Database> get db async {
