@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -36,11 +35,8 @@ class _AddTaskState extends State<AddTask> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       print('$_title,$_date,$_priority');
-
-      //insert the task to user database
-
+      //insert task to user db
       //update the task
-
       Navigator.pop(context);
     }
   }
@@ -167,7 +163,7 @@ class _AddTaskState extends State<AddTask> {
                                 fontSize: 25.0,
                                 fontWeight: FontWeight.w500),
                           ),
-                          onPressed: _submit(),
+                          onPressed: _submit,
                         ),
                       ),
                     ],
