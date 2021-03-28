@@ -57,7 +57,7 @@ class _ToDoListState extends State<ToDoList> {
                 _updateTaskList();
               },
               activeColor: Theme.of(context).primaryColor,
-              value: true,
+              value: task.status == 1 ? true : false,
             ),
             onTap: () => Navigator.push(
               context,
@@ -125,7 +125,7 @@ class _ToDoListState extends State<ToDoList> {
                           ),
                           SizedBox(height: 15.0),
                           Text(
-                            '$completedTaskCount of ${snapshot.data.length}',
+                            '$completedTaskCount of ${snapshot.data.length} done',
                             style: TextStyle(
                               color: Colors.deepOrange,
                               fontSize: 30,
